@@ -345,8 +345,37 @@ function renderCertificates(){document.getElementById('certList').innerHTML=resu
 document.getElementById('copyWechatBtn').addEventListener('click',function(){var w=resume.wechat;if(navigator.clipboard){navigator.clipboard.writeText(w).then(function(){alert('&#x5FAE;&#x4FE1;&#x5DF2;&#x590D;&#x5236;: '+w);})['catch'](function(){fallbackCopy(w);});}else{fallbackCopy(w);}});
 function fallbackCopy(text){var area=document.createElement('textarea');area.value=text;document.body.appendChild(area);area.select();try{document.execCommand('copy');alert('&#x5FAE;&#x4FE1;&#x5DF2;&#x590D;&#x5236;: '+text);}catch(e){alert('&#x8BF7;&#x624B;&#x52A8;&#x590D;&#x5236;: '+text);}document.body.removeChild(area);}
 
-var body=document.body;var currentTheme='green';var themeToggle=document.getElementById('themeToggle');themeToggle.addEventListener('click',function(){if(currentTheme==='green'){body.setAttribute('data-theme','khaki');currentTheme='khaki';this.textContent='&#x5361;&#x5176;';}else{body.setAttribute('data-theme','green');currentTheme='green';this.textContent='&#x519B;&#x7EFF;';}});
-var darkMode=false;var darkToggle=document.getElementById('darkToggle');darkToggle.addEventListener('click',function(){darkMode=!darkMode;if(darkMode){body.setAttribute('data-dark','true');this.textContent='&#x6D45;&#x8272;';}else{body.removeAttribute('data-dark');this.textContent='&#x6697;&#x591C;';}});
+var body = document.body;
+var currentTheme = 'green';
+var themeToggle = document.getElementById('themeToggle');
+var darkToggle = document.getElementById('darkToggle');
+
+// 主题切换（按钮文字用 Unicode 转义）
+themeToggle.addEventListener('click', function(){
+    if (currentTheme === 'green') {
+        body.setAttribute('data-theme', 'khaki');
+        currentTheme = 'khaki';
+        this.textContent = '\u5361\u5176';  // 卡其
+    } else {
+        body.setAttribute('data-theme', 'green');
+        currentTheme = 'green';
+        this.textContent = '\u519B\u7EFF';  // 军绿
+    }
+});
+
+// 暗夜模式切换
+var darkMode = false;
+darkToggle.addEventListener('click', function(){
+    darkMode = !darkMode;
+    if (darkMode) {
+        body.setAttribute('data-dark', 'true');
+        this.textContent = '\u6D45\u8272';  // 浅色
+    } else {
+        body.removeAttribute('data-dark');
+        this.textContent = '\u6697\u591C';  // 暗夜
+    }
+});
+
 document.getElementById('printBtn').addEventListener('click',function(){window.print();});
 var backBtn=document.getElementById('backTop');window.addEventListener('scroll',function(){backBtn.classList.toggle('visible',window.scrollY>400);});backBtn.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
 
